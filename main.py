@@ -14,7 +14,7 @@ class Dartboard_1:
         y = random.uniform(-self.radiusOfBoard,self.radiusOfBoard)
         coordinates = (x,y)
         distanceFrom0 = sqrt(x**2+y**2)
-        print(distanceFrom0)
+        
         if distanceFrom0 > self.radiusOfBoard:
             score = 0
         elif distanceFrom0 < (self.radiusOfBoard/10):
@@ -56,7 +56,7 @@ class Dartboard_2:
         y = r*sin(phi)
         coordinates = (x,y)
         distanceFrom0 = sqrt(x**2+y**2)
-        print(distanceFrom0)
+        
         if distanceFrom0 > self.radiusOfBoard:
             score = 0
         elif distanceFrom0 < (self.radiusOfBoard/10):
@@ -86,13 +86,17 @@ class Dartboard_2:
 def test_equal_means(firstSample : Dartboard_1, secondSample : Dartboard_2, alpha = 0.05):
     #h0 -> mean of scores from dartboard_1 = mean of scores from dartboard_2
     
+    #normality test
     stat1, p1 = shapiro(firstSample.scores)
     stat2, p2 = shapiro(secondSample.scores)
+    #test - equal variances
     statLevene, pLevene = levene(firstSample.scores, secondSample.scores)
     
     if p1 > 0.05 and p2 > 0.05 and pLevene > 0.05:
+        #t test if variables are normally distributed and their variances are equal
         stat, p = ttest_ind(firstSample.scores, secondSample.scores)
     else:
+        #non-parametric test
         stat, p = mannwhitneyu(firstSample.scores, secondSample.scores)
     
     if p > alpha:
@@ -103,6 +107,9 @@ def test_equal_means(firstSample : Dartboard_1, secondSample : Dartboard_2, alph
     else:
         print(f"There is a significant difference between average scores of dartboard 1 and dartboard 2. We reject h0 at a significance level of {alpha}.")
         print(f'Average scores: dartboard 1 = {firstSample.averageScore}, dartboard 2 = {secondSample.averageScore}')
+
+
+
 
 playFirstDartboard = Dartboard_1()
 playFirstDartboard.simulate(200)
