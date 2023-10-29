@@ -82,12 +82,19 @@ class Dartboard_2:
             
 dartss = Dartboard_1()
 dartss.simulate(200)
-print(dartss.averageScore)
 d = Dartboard_2()
 d.simulate(200)
-print(d.averageScore)
 
-t, p = ttest_ind(dartss.scores,d.scores)
-print(p)
-print(t)
-#jesli p>0.05 to h0 przyjeta
+def test_equal_means(firstSample : Dartboard_1, secondSample : Dartboard_2, alpha):
+    #h0 -> mean of scores from dartboard_1 = mean of scores from dartboard_2
+    t, p = ttest_ind(firstSample.scores, secondSample.scores)
+    
+    if p > alpha:
+        #there is no reason to reject h0
+        print(f"There isn't a significant difference between average scores of dartboard 1 and dartboard 2. We don't reject h0 at a significance level of {p}.")
+        print(f'Average scores: dartboard 1 = {firstSample.averageScore}, dartboard 2 = {secondSample.averageScore}')
+        
+    else:
+        print(f"There is a significant difference between average scores of dartboard 1 and dartboard 2. We reject h0 at a significance level of {p}.")
+        print(f'Average scores: dartboard 1 = {firstSample.averageScore}, dartboard 2 = {secondSample.averageScore}')
+    
