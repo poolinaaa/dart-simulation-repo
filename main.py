@@ -1,8 +1,5 @@
-from cProfile import label
 import random
 from math import sqrt, pi, cos, sin
-from textwrap import fill
-from turtle import color
 from scipy.stats import ttest_ind, shapiro, levene, mannwhitneyu
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
