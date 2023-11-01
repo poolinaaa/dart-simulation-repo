@@ -1,3 +1,4 @@
+from cProfile import label
 import random
 from math import sqrt, pi, cos, sin
 from textwrap import fill
@@ -51,20 +52,34 @@ class Dartboard_1:
         x = [round[0] for round in self.historyOfCoordinates]
         y = [round[1] for round in self.historyOfCoordinates]
         
-        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, color='darkslategrey', alpha=0.4, edgecolor='none')
-        circle2 = Circle((0,0), radius=self.radiusOfBoard/5, color='darkcyan', alpha=0.4, edgecolor='none')
-        circle3 = Circle((0,0), radius=self.radiusOfBoard/2, color='cadetblue', alpha=0.4, edgecolor='none')
-        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, color='powderblue', alpha=0.5, edgecolor='none')
-        circle5 = Circle((0,0), radius=self.radiusOfBoard, color='powderblue', alpha=0.4, edgecolor='none')
+        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, color='darkslategrey', alpha=0.4, edgecolor='none', label='5 points')
+        circle2 = Circle((0,0), radius=self.radiusOfBoard/5, color='darkcyan', alpha=0.4, edgecolor='none', label='4 points')
+        circle3 = Circle((0,0), radius=self.radiusOfBoard/2, color='cadetblue', alpha=0.4, edgecolor='none', label='3 points')
+        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, color='powderblue', alpha=0.5, edgecolor='none', label='2 points')
+        circle5 = Circle((0,0), radius=self.radiusOfBoard, color='powderblue', alpha=0.4, edgecolor='none', label='1 point')
         
         fig, ax = plt.subplots(figsize=(6,6)) 
         for circle in (circle5, circle4, circle3, circle2, circle1):
             ax.add_patch(circle)
- 
+        plt.legend()
         plt.title(self.name)
         plt.scatter(x,y, color='darkslategrey', s=5)
         plt.show()
+    
+    def summarize_scores(self):
+        self.scoresCount = {
+            0: 0,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0
+        }
+
+        for score in self.scores:
+            self.scoresCount[score] += 1
         
+    
 class Dartboard_2(Dartboard_1):
     name = 'Dartboard 2'
     
@@ -133,3 +148,5 @@ playSecondDartboard.simulate(200)
 test_equal_means(playFirstDartboard,playSecondDartboard)
 playFirstDartboard.show_board()
 playSecondDartboard.show_board()
+playFirstDartboard.summarize_scores()
+print(playFirstDartboard.scoresCount)
