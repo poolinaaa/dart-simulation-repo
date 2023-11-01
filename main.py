@@ -52,16 +52,17 @@ class Dartboard_1:
         x = [round[0] for round in self.historyOfCoordinates]
         y = [round[1] for round in self.historyOfCoordinates]
         
-        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, facecolor='darkslategrey', alpha=0.4, edgecolor='none', label='5 points')
+        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, facecolor='darkslategrey', alpha=0.6, edgecolor='none', label='5 points')
         circle2 = Circle((0,0), radius=self.radiusOfBoard/5, facecolor='darkcyan', alpha=0.4, edgecolor='none', label='4 points')
         circle3 = Circle((0,0), radius=self.radiusOfBoard/2, facecolor='cadetblue', alpha=0.4, edgecolor='none', label='3 points')
         circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, facecolor='powderblue', alpha=0.5, edgecolor='none', label='2 points')
         circle5 = Circle((0,0), radius=self.radiusOfBoard, facecolor='powderblue', alpha=0.4, edgecolor='none', label='1 point')
         
-        fig, ax = plt.subplots(figsize=(6,6)) 
+        fig, ax = plt.subplots(figsize=(6.5,6.5)) 
         for circle in (circle5, circle4, circle3, circle2, circle1):
             ax.add_patch(circle)
-        plt.legend()
+        
+        plt.legend(loc='upper right')
         plt.title(self.name)
         plt.scatter(x,y, color='darkslategrey', s=5)
         plt.show()
