@@ -8,11 +8,13 @@ from matplotlib.patches import Circle
 
 
 class Dartboard_1:
+    name = 'Dartboard 1'
     
     def __init__(self):
         self.scores = []
         self.historyOfCoordinates = []
         self.radiusOfBoard = 0.5
+        
     
     def throw(self):
         x = random.uniform(-self.radiusOfBoard,self.radiusOfBoard)
@@ -45,30 +47,29 @@ class Dartboard_1:
         
         self.averageScore = sum(self.scores)/nrOfRounds
     
-     
     def show_board(self):
         x = [round[0] for round in self.historyOfCoordinates]
         y = [round[1] for round in self.historyOfCoordinates]
+        
         circle1 = Circle((0,0), radius=self.radiusOfBoard/10, color='darkslategrey', alpha=0.4, edgecolor='none')
         circle2 = Circle((0,0), radius=self.radiusOfBoard/5, color='darkcyan', alpha=0.4, edgecolor='none')
         circle3 = Circle((0,0), radius=self.radiusOfBoard/2, color='cadetblue', alpha=0.4, edgecolor='none')
-        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, color='powderblue', alpha=0.4, edgecolor='none')
+        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, color='powderblue', alpha=0.5, edgecolor='none')
+        circle5 = Circle((0,0), radius=self.radiusOfBoard, color='powderblue', alpha=0.4, edgecolor='none')
         
-        fig, ax = plt.subplots(figsize=(5,5)) 
-        
-        ax.add_patch(circle4)
-        ax.add_patch(circle3)
-        ax.add_patch(circle2)
-        ax.add_patch(circle1)
+        fig, ax = plt.subplots(figsize=(6,6)) 
+        for circle in (circle5, circle4, circle3, circle2, circle1):
+            ax.add_patch(circle)
+ 
+        plt.title(self.name)
         plt.scatter(x,y, color='darkslategrey', s=5)
         plt.show()
         
-class Dartboard_2:
+class Dartboard_2(Dartboard_1):
+    name = 'Dartboard 2'
     
     def __init__(self):
-        self.scores = []
-        self.historyOfCoordinates = []
-        self.radiusOfBoard = 0.5
+        super().__init__()
     
     def throw(self):
         a = self.radiusOfBoard/0.5
@@ -94,18 +95,6 @@ class Dartboard_2:
             score = 1
         self.save_score(coordinates, score)  
     
-    def save_score(self, coordinates, score):
-        self.historyOfCoordinates.append(coordinates)
-        self.scores.append(score)
-    
-    def simulate(self, nrOfRounds):
-        for _ in range(nrOfRounds):
-            self.throw()
-        
-        self.averageScore = sum(self.scores)/nrOfRounds
-        
-    def show_board(self):
-        super().Dartboard_1.show_board()
             
 
 
@@ -143,3 +132,4 @@ playSecondDartboard = Dartboard_2()
 playSecondDartboard.simulate(200)
 test_equal_means(playFirstDartboard,playSecondDartboard)
 playFirstDartboard.show_board()
+playSecondDartboard.show_board()
