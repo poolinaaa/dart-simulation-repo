@@ -44,21 +44,23 @@ class Dartboard_1:
             self.throw()
         
         self.averageScore = sum(self.scores)/nrOfRounds
-        
+    
+     
     def show_board(self):
         x = [round[0] for round in self.historyOfCoordinates]
         y = [round[1] for round in self.historyOfCoordinates]
-        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, color='darkslategrey', alpha=0.5, edgecolor='none')
-        circle2 = Circle((0,0), radius=self.radiusOfBoard/5, color='darkcyan', alpha=0.5, edgecolor='none')
-        circle3 = Circle((0,0), radius=self.radiusOfBoard/2, color='cadetblue', alpha=0.5, edgecolor='none')
-        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, color='powderblue', alpha=0.5, edgecolor='none')
+        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, color='darkslategrey', alpha=0.4, edgecolor='none')
+        circle2 = Circle((0,0), radius=self.radiusOfBoard/5, color='darkcyan', alpha=0.4, edgecolor='none')
+        circle3 = Circle((0,0), radius=self.radiusOfBoard/2, color='cadetblue', alpha=0.4, edgecolor='none')
+        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, color='powderblue', alpha=0.4, edgecolor='none')
         
-        fig, ax = plt.subplots() 
+        fig, ax = plt.subplots(figsize=(5,5)) 
+        
         ax.add_patch(circle4)
         ax.add_patch(circle3)
         ax.add_patch(circle2)
         ax.add_patch(circle1)
-        plt.scatter(x,y, color='darkslategrey')
+        plt.scatter(x,y, color='darkslategrey', s=5)
         plt.show()
         
 class Dartboard_2:
@@ -101,6 +103,9 @@ class Dartboard_2:
             self.throw()
         
         self.averageScore = sum(self.scores)/nrOfRounds
+        
+    def show_board(self):
+        super().Dartboard_1.show_board()
             
 
 
