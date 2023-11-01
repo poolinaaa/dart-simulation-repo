@@ -52,11 +52,11 @@ class Dartboard_1:
         x = [round[0] for round in self.historyOfCoordinates]
         y = [round[1] for round in self.historyOfCoordinates]
         
-        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, color='darkslategrey', alpha=0.4, edgecolor='none', label='5 points')
-        circle2 = Circle((0,0), radius=self.radiusOfBoard/5, color='darkcyan', alpha=0.4, edgecolor='none', label='4 points')
-        circle3 = Circle((0,0), radius=self.radiusOfBoard/2, color='cadetblue', alpha=0.4, edgecolor='none', label='3 points')
-        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, color='powderblue', alpha=0.5, edgecolor='none', label='2 points')
-        circle5 = Circle((0,0), radius=self.radiusOfBoard, color='powderblue', alpha=0.4, edgecolor='none', label='1 point')
+        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, facecolor='darkslategrey', alpha=0.4, edgecolor='none', label='5 points')
+        circle2 = Circle((0,0), radius=self.radiusOfBoard/5, facecolor='darkcyan', alpha=0.4, edgecolor='none', label='4 points')
+        circle3 = Circle((0,0), radius=self.radiusOfBoard/2, facecolor='cadetblue', alpha=0.4, edgecolor='none', label='3 points')
+        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, facecolor='powderblue', alpha=0.5, edgecolor='none', label='2 points')
+        circle5 = Circle((0,0), radius=self.radiusOfBoard, facecolor='powderblue', alpha=0.4, edgecolor='none', label='1 point')
         
         fig, ax = plt.subplots(figsize=(6,6)) 
         for circle in (circle5, circle4, circle3, circle2, circle1):
@@ -78,6 +78,16 @@ class Dartboard_1:
 
         for score in self.scores:
             self.scoresCount[score] += 1
+            
+    def __str__(self):
+        self.summarize_scores()
+        return f'''Scores count for {self.name}:
+        5 points: {self.scoresCount[5]}
+        4 points: {self.scoresCount[4]}
+        3 points: {self.scoresCount[3]}
+        2 points: {self.scoresCount[2]}
+        1 points: {self.scoresCount[1]}
+        missed (0 points): {self.scoresCount[0]}'''
         
     
 class Dartboard_2(Dartboard_1):
@@ -149,4 +159,5 @@ test_equal_means(playFirstDartboard,playSecondDartboard)
 playFirstDartboard.show_board()
 playSecondDartboard.show_board()
 playFirstDartboard.summarize_scores()
-print(playFirstDartboard.scoresCount)
+print(playFirstDartboard)
+print(playSecondDartboard)
