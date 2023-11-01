@@ -1,6 +1,11 @@
 import random
 from math import sqrt, pi, cos, sin
+from textwrap import fill
+from turtle import color
 from scipy.stats import ttest_ind, shapiro, levene, mannwhitneyu
+import matplotlib.pyplot as plt
+from matplotlib.patches import Circle
+
 
 class Dartboard_1:
     
@@ -39,7 +44,23 @@ class Dartboard_1:
             self.throw()
         
         self.averageScore = sum(self.scores)/nrOfRounds
-
+        
+    def show_board(self):
+        x = [round[0] for round in self.historyOfCoordinates]
+        y = [round[1] for round in self.historyOfCoordinates]
+        circle1 = Circle((0,0), radius=self.radiusOfBoard/10, color='darkslategrey', alpha=0.5, edgecolor='none')
+        circle2 = Circle((0,0), radius=self.radiusOfBoard/5, color='darkcyan', alpha=0.5, edgecolor='none')
+        circle3 = Circle((0,0), radius=self.radiusOfBoard/2, color='cadetblue', alpha=0.5, edgecolor='none')
+        circle4 = Circle((0,0), radius=self.radiusOfBoard/1.25, color='powderblue', alpha=0.5, edgecolor='none')
+        
+        fig, ax = plt.subplots() 
+        ax.add_patch(circle4)
+        ax.add_patch(circle3)
+        ax.add_patch(circle2)
+        ax.add_patch(circle1)
+        plt.scatter(x,y, color='darkslategrey')
+        plt.show()
+        
 class Dartboard_2:
     
     def __init__(self):
@@ -116,3 +137,4 @@ playFirstDartboard.simulate(200)
 playSecondDartboard = Dartboard_2()
 playSecondDartboard.simulate(200)
 test_equal_means(playFirstDartboard,playSecondDartboard)
+playFirstDartboard.show_board()
