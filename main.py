@@ -6,20 +6,24 @@ from matplotlib.patches import Circle
 
 
 class Dartboard_1:
+    '''class representing the first dartboard, placement of throw is calculated based on drawn x and y coordinates'''
+    
     name = 'Dartboard 1'
     
     def __init__(self):
         self.scores = []
         self.historyOfCoordinates = []
+        # assign the radius length of the dartboard 
         self.radiusOfBoard = 0.5
-        
     
+    # simulate throw on the first dartboard, placement is calculated based on drawn x and y coordinates
     def throw(self):
         x = random.uniform(-self.radiusOfBoard,self.radiusOfBoard)
         y = random.uniform(-self.radiusOfBoard,self.radiusOfBoard)
         coordinates = (x,y)
         distanceFrom0 = sqrt(x**2+y**2)
         
+        # assigning points based on the distance from the center of the dartboard
         if distanceFrom0 > self.radiusOfBoard:
             score = 0
         elif distanceFrom0 < (self.radiusOfBoard/10):
@@ -35,17 +39,21 @@ class Dartboard_1:
             
         self.save_score(coordinates, score)  
     
+    # save the score of a throw
     def save_score(self, coordinates, score):
         self.historyOfCoordinates.append(coordinates)
         self.scores.append(score)
     
+    # series of throws
     def simulate(self, nrOfRounds):
         for _ in range(nrOfRounds):
             self.throw()
         
         self.averageScore = sum(self.scores)/nrOfRounds
-    
+        
+    # display the dartboard as a plot
     def show_board(self):
+        
         x = [round[0] for round in self.historyOfCoordinates]
         y = [round[1] for round in self.historyOfCoordinates]
         
@@ -64,6 +72,7 @@ class Dartboard_1:
         plt.scatter(x,y, color='darkslategrey', s=5)
         plt.show()
     
+    # summarize the scores
     def summarize_scores(self):
         self.scoresCount = {
             0: 0,
@@ -76,7 +85,8 @@ class Dartboard_1:
 
         for score in self.scores:
             self.scoresCount[score] += 1
-            
+    
+    # represent the object as a string
     def __str__(self):
         self.summarize_scores()
         return f'''Scores count for {self.name}:
@@ -89,11 +99,14 @@ class Dartboard_1:
         
     
 class Dartboard_2(Dartboard_1):
+    '''class representing the second dartboard, placement of throw is calculated based on drawn radius and angle '''
+    
     name = 'Dartboard 2'
     
     def __init__(self):
         super().__init__()
     
+    # simulate throw on the second dartboard, placement is calculated based on drawn radius and angle   
     def throw(self):
         a = self.radiusOfBoard/0.5
         
@@ -104,6 +117,7 @@ class Dartboard_2(Dartboard_1):
         coordinates = (x,y)
         distanceFrom0 = sqrt(x**2+y**2)
         
+        # assigning points based on the distance from the center of the dartboard
         if distanceFrom0 > self.radiusOfBoard:
             score = 0
         elif distanceFrom0 < (self.radiusOfBoard/10):
@@ -168,6 +182,6 @@ playSecondDartboard.simulate(200)
 test_distributions(playFirstDartboard,playSecondDartboard)
 playFirstDartboard.show_board()
 playSecondDartboard.show_board()
-playFirstDartboard.summarize_scores()
+
 print(playFirstDartboard)
 print(playSecondDartboard)
