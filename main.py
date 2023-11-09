@@ -121,7 +121,7 @@ class Dartboard_2(Dartboard_1):
             
 
 
-def test_equal_means(firstSample : Dartboard_1, secondSample : Dartboard_2, alpha = 0.05):
+def test_distributions(firstSample : Dartboard_1, secondSample : Dartboard_2, alpha = 0.05):
     #h0 -> mean of scores from dartboard_1 = mean of scores from dartboard_2
     
     #normality test
@@ -136,10 +136,11 @@ def test_equal_means(firstSample : Dartboard_1, secondSample : Dartboard_2, alph
     else:
         #non-parametric test
         stat, p = mannwhitneyu(firstSample.scores, secondSample.scores)
+        print(stat)
     
     if p > alpha:
         #there is no reason to reject h0
-        print(f"There isn't a significant difference between average scores of dartboard 1 and dartboard 2. We don't reject h0 at a significance level of {p}.")
+        print(f"There isn't a significant difference between average scores of dartboard 1 and dartboard 2. We don't reject h0 at a significance level of {alpha}.")
         print(f'Average scores: dartboard 1 = {firstSample.averageScore}, dartboard 2 = {secondSample.averageScore}')
         
     else:
@@ -147,13 +148,24 @@ def test_equal_means(firstSample : Dartboard_1, secondSample : Dartboard_2, alph
         print(f'Average scores: dartboard 1 = {firstSample.averageScore}, dartboard 2 = {secondSample.averageScore}')
 
 
+'''def test_t_equal_var_false(firstSample : Dartboard_1, secondSample : Dartboard_2, alpha = 0.05):
+    stat, p = ttest_ind(firstSample.scores, secondSample.scores, equal_var=False)
+    if p > alpha:
+        #there is no reason to reject h0
+        print(f"There isn't a significant difference between average scores of dartboard 1 and dartboard 2. We don't reject h0 at a significance level of {alpha}.")
+        print(f'Average scores: dartboard 1 = {firstSample.averageScore}, dartboard 2 = {secondSample.averageScore}')
+        
+    else:
+        print(f"There is a significant difference between average scores of dartboard 1 and dartboard 2. We reject h0 at a significance level of {alpha}.")
+        print(f'Average scores: dartboard 1 = {firstSample.averageScore}, dartboard 2 = {secondSample.averageScore}')'''
 
+    
 
 playFirstDartboard = Dartboard_1()
 playFirstDartboard.simulate(200)
 playSecondDartboard = Dartboard_2()
 playSecondDartboard.simulate(200)
-test_equal_means(playFirstDartboard,playSecondDartboard)
+test_distributions(playFirstDartboard,playSecondDartboard)
 playFirstDartboard.show_board()
 playSecondDartboard.show_board()
 playFirstDartboard.summarize_scores()
