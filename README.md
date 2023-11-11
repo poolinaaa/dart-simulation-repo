@@ -18,10 +18,6 @@ The repository contains two classes, Dartboard_1 and Dartboard_2, representing d
 
 - Statistical Analysis: Compares the average scores between the two dartboards using statistical tests.
 
-## Used technology
-
-- Python
-- scipy, matplotlib
 
 ## Statistical Testing
 
@@ -65,3 +61,9 @@ Customize the simulation according to your preferences by tweaking these paramet
 ### Adapting the Project
 
 Feel free to adjust these parameters to explore different scenarios and test hypotheses based on varying numbers of throws, significance levels, and dartboard sizes. Tailor the simulation to your specific needs for in-depth analysis and experimentation.
+
+
+## Used technology
+
+- Python
+- scipy, matplotlib
