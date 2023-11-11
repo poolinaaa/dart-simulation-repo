@@ -150,7 +150,6 @@ def test_distributions(firstSample : Dartboard_1, secondSample : Dartboard_2, al
     else:
         #non-parametric test
         stat, p = mannwhitneyu(firstSample.scores, secondSample.scores)
-        print(stat)
     
     if p > alpha:
         #there is no reason to reject h0
