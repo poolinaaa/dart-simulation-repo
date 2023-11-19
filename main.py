@@ -162,14 +162,3 @@ def test_distributions(firstSample : Dartboard_1, secondSample : Dartboard_2, al
 
 
     
-
-playFirstDartboard = Dartboard_1()
-playFirstDartboard.simulate(200)
-playSecondDartboard = Dartboard_2()
-playSecondDartboard.simulate(200)
-test_distributions(playFirstDartboard,playSecondDartboard)
-playFirstDartboard.show_board()
-playSecondDartboard.show_board()
-
-print(playFirstDartboard)
-print(playSecondDartboard)
