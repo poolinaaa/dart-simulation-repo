@@ -67,6 +67,7 @@ class Dartboard_1:
         for circle in (circle5, circle4, circle3, circle2, circle1):
             ax.add_patch(circle)
         
+        plt.axis('equal')
         plt.legend(loc='upper right')
         plt.title(self.name)
         plt.scatter(x,y, color='darkslategrey', s=5)
