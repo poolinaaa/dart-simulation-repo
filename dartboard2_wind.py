@@ -42,8 +42,27 @@ class Dartboard_2(Dartboard_1):
             score = 1
         self.save_score(coordinates, score)
 
+    def show_bar_plot(self):
+        self.summarize_scores()
+        scores_labels = ['0','1','2','3','4','5']
+        scores = [self.scoresCount[score] for score in self.scoresCount]
+        plt.figure(figsize=(10,6))
+        plt.bar(scores_labels,scores)
+        plt.show()
+        
+        
+    def test_if_normal(self, alpha = 0.05):
+        stat, p = shapiro(self.scores)
+        
+        #h0 -> scores are normally distributed
+        if p > alpha:
+            print(f"We don't reject h0 at a significance level of {alpha}.  We have sufficient evidence to say that the scores from {self.name} are normally distributed (p-value: {p})")
+        else:
+            print(f"Since the p-value is less than {alpha}, we reject h0. We have sufficient evidence to say that the scores from {self.name} are not normally distributed (p-value: {p})")
+        
     @staticmethod
     def wind():
+        np.random.seed(16)
         rng = np.random.default_rng()
         normalDistrNumber = rng.normal()
         return normalDistrNumber
@@ -52,9 +71,5 @@ class Dartboard_2(Dartboard_1):
 g = Dartboard_2()
 g.simulate(200)
 g.show_board()
-g.summarize_scores()
-plt.plot(list(g.scoresCount.values()))
-plt.show()
-stat, p_value = shapiro(list(g.scoresCount.values()))
-print(f'Statystyka testu: {stat}, P-wartość: {p_value}')
-plt.hist(list(g.scoresCount.values()), bins=20, density=True, alpha=0.5)
+g.test_if_normal()
+g.show_bar_plot()
