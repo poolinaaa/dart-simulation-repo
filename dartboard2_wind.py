@@ -1,7 +1,6 @@
 import random
 from math import sqrt, pi, cos, sin
 import matplotlib.pyplot as plt
-from matplotlib.patches import Circle
 from main import Dartboard_1
 import numpy as np
 from scipy.stats import shapiro
@@ -21,6 +20,7 @@ class Dartboard_2(Dartboard_1):
 
         r = random.uniform(0, a * 1/sqrt(pi))
         phi = random.uniform(0, 2*pi)
+        # Random wind effect (from standard normal distribution), it changes x position
         deltaX = self.wind()
         x = r*cos(phi) + deltaX
         y = r*sin(phi)
@@ -42,15 +42,19 @@ class Dartboard_2(Dartboard_1):
             score = 1
         self.save_score(coordinates, score)
 
+    # bar plot showing amount of every score
     def show_bar_plot(self):
         self.summarize_scores()
         scores_labels = ['0','1','2','3','4','5']
         scores = [self.scoresCount[score] for score in self.scoresCount]
         plt.figure(figsize=(10,6))
-        plt.bar(scores_labels,scores)
+        plt.bar(scores_labels,scores,color = 'cadetblue', alpha=0.8)
+        plt.title('Amount of a given score')
+        plt.xlabel('Points')
+        plt.ylabel('Amount of score')
         plt.show()
         
-        
+    # test if the scores follow a normal distribution (Shapiro-Wilk test)   
     def test_if_normal(self, alpha = 0.05):
         stat, p = shapiro(self.scores)
         
@@ -59,7 +63,8 @@ class Dartboard_2(Dartboard_1):
             print(f"We don't reject h0 at a significance level of {alpha}.  We have sufficient evidence to say that the scores from {self.name} are normally distributed (p-value: {p})")
         else:
             print(f"Since the p-value is less than {alpha}, we reject h0. We have sufficient evidence to say that the scores from {self.name} are not normally distributed (p-value: {p})")
-        
+    
+    # simulate wind effect using a normal distribution 
     @staticmethod
     def wind():
         np.random.seed(16)
@@ -69,7 +74,7 @@ class Dartboard_2(Dartboard_1):
 
 
 g = Dartboard_2()
-g.simulate(200)
+g.simulate(1000)
 g.show_board()
 g.test_if_normal()
 g.show_bar_plot()
